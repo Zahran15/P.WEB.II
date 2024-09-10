@@ -127,7 +127,44 @@ menggunakan getNama andi dan mengubahnya dengan setNama menjadi zahran
 
 ## 3. Inheritance
 - Buat class Pengguna dengan atribut nama dan metode getNama().
+```php
+class Pengguna {
+    protected $nama;
 
+    public function __construct($nama) {
+        $this->nama = $nama;
+    }
+
+    public function getNama() {
+        return $this->nama;
+    }
+}
+```
+Class Pengguna berfungsi sebagai kelas induk (parent class) yang memiliki satu atribut dan satu metode.  Konstruktor berfungsi untuk menginisialisasi nilai atribut nama saat objek dibuat. public function getNama(): Metode ini berfungsi untuk mengambil nilai dari atribut nama
+- Buat class Dosen yang mewarisi class Pengguna dan tambahkan atribut
+mataKuliah.
+```php
+class Dosen extends Pengguna {
+    private $mataKuliah;
+
+    public function __construct($nama, $mataKuliah) {
+        parent::__construct($nama);
+        $this->mataKuliah = $mataKuliah;
+    }
+
+    public function tampilkanData() {
+        echo "Nama Dosen: " . $this->getNama() . "<br>";
+        echo "Mata Kuliah: " . $this->mataKuliah . "<br>";
+    }
+}
+```
+Class Dosen adalah class turunan (child class) dari Pengguna. Class ini mewarisi atribut dan metode dari Pengguna, serta menambahkan atribut dan metode baru. private $mataKuliah;: Atribut ini menyimpan mata kuliah yang diampu oleh dosen. Aksesnya bersifat private, sehingga hanya dapat diakses dari dalam class Dosen sendiri.
+- Instansiasi objek dari class Dosen dan tampilkan data dosen.
+```php
+$dosen = new Dosen("Pak Abda'u", "Praktikum Pemrograman Web");
+$dosen->tampilkanData();
+```
+Instansiasi objek dilakukan dengan menggunakan kata kunci new, dan kemudian metode tampilkanData() dipanggil untuk menampilkan data.
 - Kode yang bersih dan terstruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Inheritance.png)
 - Output
@@ -135,6 +172,46 @@ menggunakan getNama andi dan mengubahnya dengan setNama menjadi zahran
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%203.png)
 
 ## 4. Polymorphism
+- Buat class Pengguna dengan metode aksesFitur().
+```php
+class Pengguna {
+    protected $nama;
+
+    // Constructor untuk inisialisasi nama
+    public function __construct($nama) {
+        $this->nama = $nama;
+    }
+
+    public function aksesFitur() {
+        echo "{$this->nama} mengakses fitur umum.<br>";
+    }
+}
+```
+Class Pengguna berfungsi sebagai class induk yang memiliki satu metode aksesFitur(). Metode aksesFitur() di class Pengguna menampilkan pesan umum yang menyebutkan bahwa pengguna mengakses fitur umum.
+- Implementasikan aksesFitur() dengan cara berbeda di class Dosen dan Mahasiswa.
+```php
+class Dosen extends Pengguna {
+    public function aksesFitur() {
+        echo "Dosen {$this->nama} mengakses fitur untuk dosen.<br>";
+    }
+}
+
+class Mahasiswa extends Pengguna {
+    public function aksesFitur() {
+        echo "Mahasiswa {$this->nama} mengakses fitur untuk mahasiswa.<br>";
+    }
+}
+```
+Class Dosen dan Mahasiswa mewarisi class Pengguna, namun mereka meng-overwrite metode aksesFitur() untuk menampilkan pesan yang berbeda, sesuai dengan jenis pengguna. Dosen::aksesFitur(): Menampilkan pesan bahwa dosen mengakses fitur khusus untuk dosen. Mahasiswa::aksesFitur(): Menampilkan pesan bahwa mahasiswa mengakses fitur khusus untuk mahasiswa.
+- Instansiasi objek dari class Dosen dan Mahasiswa, lalu panggil metode aksesFitur().
+```php
+$dosen = new Dosen("Pak Abda'u");
+$mahasiswa = new Mahasiswa("Zahran");
+
+$dosen->aksesFitur();      // Output: Dosen Pak Abda'u mengakses fitur untuk dosen.
+$mahasiswa->aksesFitur();  // Output: Mahasiswa Zahran mengakses fitur untuk mahasiswa.
+```
+Objek dibuat dari class Dosen dan Mahasiswa, dan kemudian masing-masing memanggil metode aksesFitur() yang sudah di-overwrite di class mereka.
 - Kode yang bersih dan terstruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Polymorphism.png)
 - Output
@@ -142,6 +219,43 @@ menggunakan getNama andi dan mengubahnya dengan setNama menjadi zahran
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%204.png)
 
 ## 5. Abstraction 
+- Buat class abstrak Pengguna dengan metode abstrak aksesFitur().
+```php
+abstract class Pengguna {
+    protected $nama;
+
+    public function __construct($nama) {
+        $this->nama = $nama;
+    }
+
+    abstract public function aksesFitur();
+}
+```
+Class Pengguna adalah class abstrak yang berfungsi sebagai blueprint untuk class lain yang akan mewarisinya. Class abstrak tidak dapat diinstansiasi langsung, tetapi harus diimplementasikan oleh class turunannya. Class abstrak: Class yang tidak bisa diinstansiasi langsung. Metode abstrak aksesFitur(): Harus diimplementasikan oleh class turunannya. Di sini, hanya deklarasinya saja tanpa implementasi di dalam class Pengguna.
+- Implementasikan class Mahasiswa dan Dosen yang mengimplementasikan metode abstrak tersebut.
+```php
+class Mahasiswa extends Pengguna {
+    public function aksesFitur() {
+        echo "Mahasiswa " . $this->nama . " mengakses fitur mahasiswa.<br>";
+    }
+}
+
+class Dosen extends Pengguna {
+    public function aksesFitur() {
+        echo "Dosen " . $this->nama . " mengakses fitur dosen.<br>";
+    }
+}
+```
+Class Mahasiswa dan Dosen mewarisi class Pengguna dan mengimplementasikan metode abstrak aksesFitur(). Mahasiswa::aksesFitur(): Mengimplementasikan metode abstrak dari class Pengguna dengan menampilkan pesan bahwa mahasiswa mengakses fitur mahasiswa. Dosen::aksesFitur(): Mengimplementasikan metode abstrak dengan menampilkan pesan bahwa dosen mengakses fitur dosen.
+- Demonstrasikan dengan memanggil metode aksesFitur() dari objek yang diinstansiasi.
+```php
+$mahasiswa = new Mahasiswa("Zahran");
+$dosen = new Dosen("Pak Abda'u");
+
+$mahasiswa->aksesFitur();
+$dosen->aksesFitur();
+```
+Instansiasi objek dilakukan dari class Mahasiswa dan Dosen, dan metode aksesFitur() dipanggil untuk menampilkan pesan yang spesifik. 
 - Kode yang bersih dan terstruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Abstraction.png)
 - Output
