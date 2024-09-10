@@ -73,4 +73,77 @@ Setelah objek dibuat, method tampilkanData() dipanggil untuk mencetak data mahas
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%201.png)
 
 ## 2. Encapsulation
--
+- Ubah atribut dalam class Mahasiswa menjadi private.
+```php
+class Mahasiswa {
+    private $nama;
+    private $nim;
+    private $jurusan;
+}
+```
+Mengubah semua atribut menjadi private
+- Buat metode getter dan setter untuk atribut nama, nim, dan jurusan.
+```php
+public function getNama() {
+        return $this->nama;
+    }
+
+    public function setNama($nama) {
+        $this->nama = $nama;
+    }
+
+    // Getter dan Setter untuk nim
+    public function getNim() {
+        return $this->nim;
+    }
+
+    public function setNim($nim) {
+        $this->nim = $nim;
+    }
+
+    // Getter dan Setter untuk jurusan
+    public function getJurusan() {
+        return $this->jurusan;
+    }
+
+    public function setJurusan($jurusan) {
+        $this->jurusan = $jurusan;
+    }
+```
+Membuat getter dan setter untuk semua atribut get untuk mendapatkan nilai dari private sedangkan set untuk mengubah nilai dari private 
+- Demonstrasikan akses ke atribut menggunakan metode getter dan setter.
+```php
+// Instansiasi objek
+$mahasiswa = new Mahasiswa("Andi", "230202048", "Teknik Informatika");
+$mahasiswa->setNama("Zahran");
+$mahasiswa->tampilkanData();
+```
+menggunakan getNama andi dan mengubahnya dengan setNama menjadi zahran
+- Kode yang bersih dan terstruktur
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Encapsulation.png)
+- Output
+
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%202.png)
+
+## 3. Inheritance
+- Buat class Pengguna dengan atribut nama dan metode getNama().
+
+- Kode yang bersih dan terstruktur
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Inheritance.png)
+- Output
+
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%203.png)
+
+## 4. Polymorphism
+- Kode yang bersih dan terstruktur
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Polymorphism.png)
+- Output
+
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%204.png)
+
+## 5. Abstraction 
+- Kode yang bersih dan terstruktur
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Abstraction.png)
+- Output
+
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%205.png)
