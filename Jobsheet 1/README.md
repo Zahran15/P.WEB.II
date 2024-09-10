@@ -69,4 +69,8 @@ Setelah objek dibuat, method tampilkanData() dipanggil untuk mencetak data mahas
 - Kode yang bersih dan terstruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/class.png)
 - Output
-![Screenshot](Pictures/Jobsheet1/Output1.png)
+
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%201.png)
+
+## 2. Encapsulation
+-
