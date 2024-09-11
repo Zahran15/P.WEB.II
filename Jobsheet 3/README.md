@@ -102,7 +102,10 @@ private $studentID; // Ubah atribut studentID dalam kelas Student menjadi privat
 
 }
 ```
-
+Encapsulation melibatkan penggunaan private untuk melindungi data dan menyediakan metode getter dan setter untuk akses terkontrol. </br>
+Polymorphism mengacu pada kemampuan metode untuk memiliki implementasi yang berbeda di kelas turunan, seperti getName() dalam contoh ini. </br>
+Konstruktor menginisialisasi atribut saat objek dibuat. </br>
+Getter dan setter memungkinkan akses dan perubahan data yang aman pada atribut private. </br>
 
 ## 4. Abstraction
 konsep yang memungkinkan kita untuk menyembunyikan detail implementasi internal dan hanya menampilkan fungsionalitas yang relevan kepada pengguna.- Buat kelas abstrak Course dengan metode abstrak getCourseDetails().
@@ -136,6 +139,9 @@ class OfflineCourse extends Course { // Buat kelas OnlineCourse dan OfflineCours
     }
 }
 ```
+Kelas Abstrak Course mendefinisikan metode abstrak getCourseDetails(), yang berarti kelas ini tidak bisa diinstansiasi secara langsung dan hanya berfungsi sebagai cetak biru. Setiap kelas turunan yang mewarisinya harus mengimplementasikan metode ini. </br>
+Kelas OnlineCourse dan OfflineCourse mewarisi kelas Course. Keduanya mengimplementasikan metode getCourseDetails() dengan cara yang berbeda. Atribut courseName disimpan secara privat, yang melindungi data dari akses langsung di luar kelas (Encapsulation). </br>
+Pada kelas OnlineCourse, metode getCourseDetails() mengembalikan detail kursus dengan format "Online Course: <nama kursus>". Sementara pada OfflineCourse, metode yang sama mengembalikan format "Offline Course: <nama kursus>". </br>
 
 - Struktur kode yang bersih dan mudah dipahami
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%203/Intruksi.png)
@@ -144,14 +150,223 @@ class OfflineCourse extends Course { // Buat kelas OnlineCourse dan OfflineCours
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%203/output%20intruksi.png)
 
 # Tugas
-- 1. Implementasikan kelas Person sebagai induk dari Dosen dan Mahasiswa.
-- 2. Gunakan konsep Inheritance untuk membuat hierarki kelas yang memungkinkan Dosen dan Mahasiswa memiliki atribut dan metode yang sesuai dengan perannya.
-- 3. Terapkan Polymorphism dengan membuat metode getRole() di kelas Person dan override metode ini di kelas Dosen dan Mahasiswa untuk menampilkan peran yang berbeda.
-- 4. Gunakan Encapsulation untuk melindungi atribut nidn di kelas Dosen dan nim di kelas Mahasiswa.
-- 5. Buat kelas abstrak Jurnal dan implementasikan konsep Abstraction dengan membuat kelas turunan JurnalDosen dan JurnalMahasiswa yang masing-masing memiliki cara tersendiri untuk mengelola pengajuan jurnal.
+## 1. Implementasikan kelas Person sebagai induk dari Dosen dan Mahasiswa.
+```php
+class Person {
+    // Atribut atau properties
+    protected $nama;
+    protected $role;
 
-- Struktur kode yang bersih dan mudah dipahami
+    // Constructor menginisialisasi atribut
+    public function __construct($nama, $role) {
+        $this->nama = $nama;
+        $this->role = $role;
+    }
+
+    // Function untuk menampilkan nilai atribut
+    public function showData() {
+        return $this->nama;
+    }
+```
+- Kelas Person mendefinisikan dua atribut, yaitu nama dan role, yang diinisialisasi melalui konstruktor. </br>
+- Atribut nama digunakan untuk menyimpan nama orang, dan role digunakan untuk menyimpan peran atau jabatan mereka. </br>
+- Metode showData() akan menampilkan nama dari objek Person yang dibuat. </br>
+
+## 2. Gunakan konsep Inheritance untuk membuat hierarki kelas yang memungkinkan Dosen dan Mahasiswa memiliki atribut dan metode yang sesuai dengan perannya.
+```php
+class Mahasiswa extends Person {
+    // Atribut atau properties
+    private $nim;
+
+    // Constructor
+    public function __construct($nama, $nim, $role) {
+        parent::__construct($nama, $role);
+        $this->nim = $nim;
+    }
+
+    // Metode
+    public function showData() {
+        return "Nama: $this->nama <br> NIM: $this->nim";
+    }
+
+    // Polymorphism (override method getRole())
+    public function getRole() {
+        return "Role: $this->role";
+    }
+}
+
+class Dosen extends Person {
+    // Atribut atau properties
+    private $nidn;
+
+    // Constructor
+    public function __construct($nama, $nidn, $role) {
+        parent::__construct($nama, $role);
+        $this->nidn = $nidn;
+    }
+
+    // Metode
+    public function showData() {
+        return "Nama: $this->nama <br> NIDN: $this->nidn";
+    }
+
+    // Polymorphism (override method getRole())
+    public function getRole() {
+        return "Role: $this->role";
+    }
+}
+```
+### 1. Kelas Mahasiswa:
+- Inheritance: Mewarisi dari Person.
+- Atribut: private $nim untuk menyimpan NIM mahasiswa.
+- Constructor: Inisialisasi nama, nim, dan role dengan memanggil konstruktor parent.
+- Metode showData(): Menampilkan nama dan nim.
+- Polymorphism: Override metode getRole() untuk menampilkan role mahasiswa.
+### 2. Kelas Dosen:
+- Inheritance: Mewarisi dari Person.
+- Atribut: private $nidn untuk menyimpan NIDN dosen.
+- Constructor: Inisialisasi nama, nidn, dan role dengan memanggil konstruktor parent.
+- Metode showData(): Menampilkan nama dan nidn.
+- Polymorphism: Override metode getRole() untuk menampilkan role dosen.
+### Konsep OOP:
+- Inheritance: Kelas Mahasiswa dan Dosen mewarisi Person.
+- Encapsulation: Atribut private diakses melalui metode.
+- Polymorphism: Override metode getRole() untuk penyesuaian spesifik.
+
+## 3. Terapkan Polymorphism dengan membuat metode getRole() di kelas Person dan override metode ini di kelas Dosen dan Mahasiswa untuk menampilkan peran yang berbeda.
+```php
+public function getRole() {
+        return $this->role;
+    }
+}
+```
+- Visibilitas: public berarti metode ini dapat diakses dari luar kelas.
+- Fungsi: Metode ini mengembalikan nilai dari properti $role objek.
+- $this->role: Mengacu pada atribut $role milik objek saat ini.
+
+## 4. Gunakan Encapsulation untuk melindungi atribut nidn di kelas Dosen dan nim di kelas Mahasiswa.
+```php
+class Mahasiswa extends Person {
+    // Atribut atau properties
+    private $nim;
+
+    // Constructor
+    public function __construct($nama, $nim, $role) {
+        parent::__construct($nama, $role);
+        $this->nim = $nim;
+    }
+
+    // Metode
+    public function showData() {
+        return "Nama: $this->nama <br> NIM: $this->nim";
+    }
+
+    // Polymorphism (override method getRole())
+    public function getRole() {
+        return "Role: $this->role";
+    }
+}
+
+class Dosen extends Person {
+    // Atribut atau properties
+    private $nidn;
+
+    // Constructor
+    public function __construct($nama, $nidn, $role) {
+        parent::__construct($nama, $role);
+        $this->nidn = $nidn;
+    }
+
+    // Metode
+    public function showData() {
+        return "Nama: $this->nama <br> NIDN: $this->nidn";
+    }
+
+    // Polymorphism (override method getRole())
+    public function getRole() {
+        return "Role: $this->role";
+    }
+}
+```
+### 1. Kelas Mahasiswa:
+- Inheritance: Mewarisi dari kelas Person.
+- Atribut: private $nim: Atribut untuk menyimpan Nomor Induk Mahasiswa (NIM).
+- Constructor:__construct($nama, $nim, $role): Menginisialisasi objek Mahasiswa dengan nama, nim, dan role. parent::__construct($nama, $role) memanggil konstruktor dari kelas Person untuk menginisialisasi nama dan role.
+- Metode: showData(): Mengembalikan string yang menampilkan nama dan nim mahasiswa. getRole(): Override metode getRole() dari kelas Person untuk menampilkan role dengan format "Role: {role}".
+### 2. Kelas Dosen:
+- Inheritance: Mewarisi dari kelas Person.
+- Atribut: private $nidn: Atribut untuk menyimpan Nomor Induk Dosen Nasional (NIDN).
+- Constructor:__construct($nama, $nidn, $role): Menginisialisasi objek Dosen dengan nama, nidn, dan role. parent::__construct($nama, $role) memanggil konstruktor dari kelas Person untuk menginisialisasi nama dan role.
+- Metode: showData(): Mengembalikan string yang menampilkan nama dan nidn dosen. getRole(): Override metode getRole() dari kelas Person untuk menampilkan role dengan format "Role: {role}".
+### 3. Konsep OOP yang Digunakan:
+- Inheritance (Pewarisan): Mahasiswa dan Dosen mewarisi properti dan metode dari Person, memungkinkan mereka untuk menggunakan atau menyesuaikan fitur yang ada di Person.
+- Encapsulation (Enkapsulasi): Atribut nim dan nidn bersifat private, sehingga hanya dapat diakses melalui metode dalam kelas tersebut.
+- Polymorphism: Metode getRole() di-override dalam kedua kelas untuk menampilkan format role yang sesuai dengan objek Mahasiswa dan Dosen.
+
+## 5. Buat kelas abstrak Jurnal dan implementasikan konsep Abstraction dengan membuat kelas turunan JurnalDosen dan JurnalMahasiswa yang masing-masing memiliki cara tersendiri untuk mengelola pengajuan jurnal.
+```php
+abstract class Jurnal {
+    // Atribut atau properties
+    protected $judul;
+    protected $penulis;
+    protected $status;
+
+    // Constructor
+    public function __construct($judul, $penulis, $status) {
+        $this->judul = $judul;
+        $this->penulis = $penulis;
+        $this->status = $status;
+    }
+
+    // Metode abstrak
+    abstract public function pengajuanStatus();
+
+    // Metode untuk mengambil nilai atribut
+    public function getJudul() {
+        return $this->judul;
+    }
+
+    public function getPenulis() {
+        return $this->penulis;
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+}
+
+class JurnalDosen extends Jurnal {
+    // Metode
+    public function pengajuanStatus() {
+        return "Judul: {$this->getJudul()} <br> Nama Dosen: {$this->getPenulis()} <br> Status Pengajuan: {$this->getStatus()}";
+    }
+}
+
+class JurnalMahasiswa extends Jurnal {
+    // Metode
+    public function pengajuanStatus() {
+        return "Judul: {$this->getJudul()} <br> Nama Mahasiswa: {$this->getPenulis()} <br> Status Pengajuan: {$this->getStatus()}";
+    }
+}
+```
+### 1. Kelas Abstrak Jurnal
+- Abstract Class: Kelas Jurnal adalah kelas abstrak yang tidak bisa diinstansiasi secara langsung. Ini berfungsi sebagai blueprint untuk kelas-kelas turunan.
+- Atribut: protected $judul: Menyimpan judul jurnal. protected $penulis: Menyimpan nama penulis. protected $status: Menyimpan status pengajuan.
+- Constructor:__construct($judul, $penulis, $status): Menginisialisasi atribut judul, penulis, dan status.
+- Metode Abstrak: abstract public function pengajuanStatus();: Metode abstrak yang harus diimplementasikan oleh kelas turunan. Metode ini tidak memiliki implementasi di kelas Jurnal.
+- Metode Getter: getJudul(): Mengembalikan nilai dari atribut judul. getPenulis(): Mengembalikan nilai dari atribut penulis. getStatus(): Mengembalikan nilai dari atribut status.
+### 2. Kelas JurnalDosen
+- Inheritance: Mewarisi dari kelas Jurnal.
+- Metode: pengajuanStatus(): Implementasi dari metode abstrak pengajuanStatus() yang mengembalikan string dengan format "Judul: {judul} <br> Nama Dosen: {penulis} <br> Status Pengajuan: {status}".
+### 3. Kelas JurnalMahasiswa
+- Inheritance: Mewarisi dari kelas Jurnal.
+- Metode: pengajuanStatus(): Implementasi dari metode abstrak pengajuanStatus() yang mengembalikan string dengan format "Judul: {judul} <br> Nama Mahasiswa: {penulis} <br> Status Pengajuan: {status}".
+### 4. Konsep OOP yang Digunakan:
+- Abstraction (Abstraksi): Kelas Jurnal sebagai kelas abstrak menyediakan template dasar yang harus diikuti oleh kelas-kelas turunan tanpa menyediakan implementasi lengkap untuk semua metode.
+- Inheritance (Pewarisan): JurnalDosen dan JurnalMahasiswa mewarisi dari Jurnal dan harus mengimplementasikan metode abstrak pengajuanStatus().
+- Encapsulation (Enkapsulasi): Atribut dalam Jurnal bersifat protected, sehingga hanya bisa diakses dalam kelas itu sendiri dan kelas turunannya.
+## Struktur kode yang bersih dan mudah dipahami
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%203/Tugas.png)
-- Output
+## Output
 
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%203/output%20tugas.png)
