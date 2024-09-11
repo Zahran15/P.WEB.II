@@ -73,6 +73,7 @@ Setelah objek dibuat, method tampilkanData() dipanggil untuk mencetak data mahas
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%201.png)
 
 ## 2. Encapsulation
+Menyembunyikan detail implementasi dan hanya memberikan akses melalui metode tertentu.
 - Ubah atribut dalam class Mahasiswa menjadi private.
 ```php
 class Mahasiswa {
@@ -126,6 +127,7 @@ menggunakan getNama andi dan mengubahnya dengan setNama menjadi zahran
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%202.png)
 
 ## 3. Inheritance
+Kelas dapat mewarisi properti dan metode dari kelas lain.
 - Buat class Pengguna dengan atribut nama dan metode getNama().
 ```php
 class Pengguna {
@@ -172,6 +174,7 @@ Instansiasi objek dilakukan dengan menggunakan kata kunci new, dan kemudian meto
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%203.png)
 
 ## 4. Polymorphism
+Metode yang sama dapat memiliki implementasi berbeda dalam class yang berbeda.
 - Buat class Pengguna dengan metode aksesFitur().
 ```php
 class Pengguna {
@@ -219,6 +222,7 @@ Objek dibuat dari class Dosen dan Mahasiswa, dan kemudian masing-masing memanggi
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%204.png)
 
 ## 5. Abstraction 
+Menyembunyikan detail implementasi dan hanya menampilkan fungsi penting.
 - Buat class abstrak Pengguna dengan metode abstrak aksesFitur().
 ```php
 abstract class Pengguna {
