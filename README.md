@@ -8,7 +8,7 @@ Repository ini dibuat untuk memenuhi tugas pekuliahan Praktikum Web 2 yang diamp
 ## Daftar Isi
 - [Jobsheet 1](https://github.com/Zahran15/P.WEB.II/tree/main/Jobsheet%201)
 - [Jobsheet 2](https://github.com/Zahran15/P.WEB.II/tree/main/Jobsheet%202)
-- [Jobsheet 3]()
+- [Jobsheet 3](https://github.com/Zahran15/P.WEB.II/tree/main/Jobsheet%203)
 
 ## OOP PHP Introduction
 Pemrograman Berorientasi Objek (OOP) adalah paradigma pemrograman yang berfokus pada penggunaan objek untuk merepresentasikan data dan metode yang terkait dengannya 
