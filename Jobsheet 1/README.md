@@ -61,13 +61,13 @@ public function tampilkanData() {
 Method ini berfungsi untuk menampilkan data mahasiswa (nama, NIM, dan jurusan) dalam format HTML dengan menggunakan perintah echo.
 - Instansiasi objek dari class Mahasiswa dan tampilkan data mahasiswa tersebut.
 ```php
-$mahasiswa = new Mahasiswa("Zahran Rezqy Syahputra", "230202048", "Teknik Informatika");
+$mahasiswa = new Mahasiswa("Zahran Rezqy Syahputra", "230202048", "Komputer dan Bisnis");
 $mahasiswa->tampilkanData();
 ```
 Objek Mahasiswa dibuat dengan data tertentu (nama, NIM, jurusan) menggunakan keyword new.
 Setelah objek dibuat, method tampilkanData() dipanggil untuk mencetak data mahasiswa ke halaman web.
 - Kode yang bersih dan terstruktur
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/class.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/1.%20Class%20and%20Objects.png)
 - Output
 
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%201.png)
@@ -115,13 +115,13 @@ Membuat getter dan setter untuk semua atribut get untuk mendapatkan nilai dari p
 - Demonstrasikan akses ke atribut menggunakan metode getter dan setter.
 ```php
 // Instansiasi objek
-$mahasiswa = new Mahasiswa("Andi", "230202048", "Teknik Informatika");
+$mahasiswa = new Mahasiswa("Andi", "230202048", "Komputer dan Bisnis");
 $mahasiswa->setNama("Zahran");
 $mahasiswa->tampilkanData();
 ```
 menggunakan getNama andi dan mengubahnya dengan setNama menjadi zahran
 - Kode yang bersih dan terstruktur
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Encapsulation.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/2.%20Encapsulation.png)
 - Output
 
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%202.png)
@@ -168,7 +168,7 @@ $dosen->tampilkanData();
 ```
 Instansiasi objek dilakukan dengan menggunakan kata kunci new, dan kemudian metode tampilkanData() dipanggil untuk menampilkan data.
 - Kode yang bersih dan terstruktur
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Inheritance.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/3.%20Inheritance.png)
 - Output
 
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%203.png)
@@ -216,7 +216,7 @@ $mahasiswa->aksesFitur();  // Output: Mahasiswa Zahran mengakses fitur untuk mah
 ```
 Objek dibuat dari class Dosen dan Mahasiswa, dan kemudian masing-masing memanggil metode aksesFitur() yang sudah di-overwrite di class mereka.
 - Kode yang bersih dan terstruktur
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Polymorphism.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/4.%20Polymorphism.png)
 - Output
 
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%204.png)
@@ -261,7 +261,7 @@ $dosen->aksesFitur();
 ```
 Instansiasi objek dilakukan dari class Mahasiswa dan Dosen, dan metode aksesFitur() dipanggil untuk menampilkan pesan yang spesifik. 
 - Kode yang bersih dan terstruktur
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Abstraction.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/5.%20Arbstraction.png)
 - Output
 
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%201/Output%205.png)
