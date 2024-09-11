@@ -70,8 +70,8 @@ tampilkanData() untuk menampilkan data dari masing masing atribut
 ```php
 // Instansiasi objek dari class Mahasiswa
 $mahasiswa1 = new Mahasiswa();
-$mahasiswa1->nama = "Budi Santoso";
-$mahasiswa1->nim = "123456";
+$mahasiswa1->nama = "Zahran";
+$mahasiswa1->nim = "230202048";
 $mahasiswa1->jurusan = "Teknik Informatika";
 
 // Menampilkan data mahasiswa
@@ -79,10 +79,10 @@ $mahasiswa1->tampilkanData();
 ```
 new Mahasiswa() digunakan untuk membuat objek baru dari class Mahasiswa. Dalam contoh ini, objek tersebut adalah $mahasiswa1.Properti dari objek tersebut diisi dengan nilai untuk nama, nim, dan jurusan. Metode tampilkanData() dipanggil menggunakan $mahasiswa1->tampilkanData(), yang akan menampilkan informasi mahasiswa yang telah di-set sebelumnya
 - Kode yang bersih dan instruktur
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/1.%20C%20and%20O.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/C%20and%20O.png)
 - Output
 
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/Output%201.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/1.%20output.png)
 
 ## 2. Implementasi Constructor
 - Tambahkan constructor pada kelas Mahasiswa yang akan menginisialisasi
@@ -98,17 +98,17 @@ Constructor adalah metode khusus dalam sebuah class yang secara otomatis dipangg
 - Gunakan constructor ini untuk mengatur nilai awal dari atribut saat objek dibuat.
 ```php
 // Instansiasi objek dengan constructor
-$mahasiswa2 = new Mahasiswa("Andi Wijaya", "654321", "Sistem Informasi");
+$mahasiswa2 = new Mahasiswa("Zahran", "230202048", "Teknik Informatika");
 
 // Menampilkan data mahasiswa
 $mahasiswa2->tampilkanData();
 ```
-Saat objek Mahasiswa dibuat dengan menggunakan new Mahasiswa("Andi Wijaya", "654321", "Sistem Informasi"), nilai-nilai tersebut secara otomatis diisi oleh constructor untuk atribut nama, nim, dan jurusan
+Saat objek Mahasiswa dibuat dengan menggunakan new Mahasiswa("Zahran", "230202048", "Teknik Informatika"), nilai-nilai tersebut secara otomatis diisi oleh constructor untuk atribut nama, nim, dan jurusan
 - Kode yang bersih dan instruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/2.%20Implementasi.png)
 - Output
 
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/Output%202.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/2.%20output.png)
 
 ## 3. Membuat Metode Tambahan
 - Buat metode updateJurusan() dalam kelas Mahasiswa yang memungkinkan perubahan jurusan.
@@ -123,7 +123,7 @@ Metode ini ditambahkan ke dalam class Mahasiswa untuk memungkinkan perubahan nil
 - Gunakan metode ini untuk mengubah jurusan dari objek yang sudah dibuat.
 ```php
 // Instansiasi objek
-$mahasiswa3 = new Mahasiswa("Siti Rahma", "789012", "Teknik Informatika");
+$mahasiswa3 = new Mahasiswa("Zahran", "230202048", "Teknik Informatika");
 
 // Mengubah jurusan mahasiswa
 $mahasiswa3->updateJurusan("Teknik Komputer");
@@ -136,7 +136,7 @@ Objek Mahasiswa diinstansiasi dengan nilai awal jurusan "Teknik Informatika". Me
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/3.%20Metode%20tambahan.png)
 - Output
 
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/Output%203.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/3.%20output.png)
 
 ## 4. Penggunaan Atribut dan Metode
 - Ubah nilai atribut nim dari objek Mahasiswa menggunakan metode setter.
@@ -151,20 +151,20 @@ Metode ini ditambahkan ke dalam class Mahasiswa untuk mengubah nilai atribut nim
 - Tampilkan data mahasiswa yang sudah diperbarui dengan memanggil metode tampilkanData().
 ```php
 // Instansiasi objek
-$mahasiswa4 = new Mahasiswa("Rina Sari", "345678", "Teknik Industri");
+$mahasiswa4 = new Mahasiswa("Zahran", "230202043", "Teknik Informatika");
 
 // Mengubah NIM
-$mahasiswa4->setNim("987654");
+$mahasiswa4->setNim("230202048");
 
 // Menampilkan data mahasiswa setelah NIM diperbarui
 $mahasiswa4->tampilkanData();
 ```
-Objek Mahasiswa diinstansiasi dengan nilai awal NIM "345678". Metode setNim() dipanggil dengan parameter "987654" untuk mengganti NIM yang ada dengan nilai baru.
+Objek Mahasiswa diinstansiasi dengan nilai awal NIM "230202043". Metode setNim() dipanggil dengan parameter "230202048" untuk mengganti NIM yang ada dengan nilai baru.
 - Kode yang bersih dan instruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/4.%20Atribut%20and%20Setter.png)
 - Output
 
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/Output%204.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/4.%20output.png)
 
 # Tugas
 ## 1. Implementasikan kelas Dosen dengan atribut nama, nip, dan mataKuliah.
@@ -189,7 +189,7 @@ Metode ini berfungsi untuk menampilkan informasi lengkap tentang dosen, termasuk
 ## 3. Buat objek dari kelas Dosen, dan gunakan metode tampilkanDosen() untuk menampilkan informasi tersebut.
 ```php
 // Instansiasi objek dari kelas Dosen
-$dosen1 = new Dosen("Dr. Bambang Sudiro", "123456789", "Pemrograman Web");
+$dosen1 = new Dosen ("Pak Abda'u", "123456789", "Pemrograman Web");
 
 // Menampilkan informasi dosen
 $dosen1->tampilkanDosen();
@@ -200,4 +200,4 @@ Objek Dosen dibuat dengan nilai atribut yang sesuai melalui constructor. Setelah
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/Tugas.png)
 - Output
 
-![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/Output%20Tugas.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Jobsheet%202/tugas%20output.png)
