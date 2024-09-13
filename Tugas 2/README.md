@@ -114,7 +114,8 @@ if ($conn->query($sql) === TRUE) {
 $conn->close();
 ```
 - Setelah semua operasi selesai, koneksi ke database MySQL ditutup untuk menghemat sumber daya.
-### Kode database yang terstruktur
+
+### Kode database yang bersih dan terstruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/1.%20Buat%20Database.png)
 
 ### 2. Buat Insert Data untuk Database
@@ -190,5 +191,110 @@ class CourseClassManager extends DatabaseConnection {
     }
 }
 ```
-### Kode Insert data yang terstruktur
+- Kelas CourseClassManager juga merupakan turunan dari DatabaseConnection, yang berarti memiliki akses ke koneksi database.
+- Metode addCourseClasses() digunakan untuk menambahkan data ke tabel course_classes. Perintah SQL INSERT INTO dijalankan untuk memasukkan beberapa baris data. Jika berhasil, pesan sukses ditampilkan, jika gagal, pesan kesalahan akan muncul.
+
+#### 4. Menambahkan Data
+```php
+$courseManager = new CourseManager();
+$courseManager->addCourses();
+
+$courseClassManager = new CourseClassManager();
+$courseClassManager->addCourseClasses();
+```
+- $courseManager = new CourseManager(); membuat objek baru dari kelas CourseManager, yang secara otomatis memanggil konstruktor dan melakukan koneksi ke database.
+- $courseManager->addCourses(); memanggil metode addCourses() untuk menambahkan data ke tabel courses.
+- $courseClassManager = new CourseClassManager(); membuat objek baru dari kelas CourseClassManager, dan koneksi database kembali diinisialisasi.
+- $courseClassManager->addCourseClasses(); memanggil metode addCourseClasses() untuk menambahkan data ke tabel course_classes.
+### Kode Insert data yang bersih dan terstruktur
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/2.%20Insert%20data.png)
+
+### 3. Membuat View berbasis OOP, dengan mengambil data dari database MySQL
+- Langkah ini sudah diterapkan dalam kode Anda dengan membuat view yang mengambil data dari tabel courses, course_classes, dan poly di database db_jkb. Data ditampilkan menggunakan tabel HTML. Kelas DatabaseConnection mengelola koneksi dan melakukan query untuk mengambil data.
+
+### 4. Menggunakan _construct sebagai link ke database
+```php
+public function __construct() {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "db_jkb";
+
+    $this->conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($this->conn->connect_error) {
+        die("Connection failed: " . $this->conn->connect_error);
+    }
+}
+```
+- Di dalam kelas DatabaseConnection, konstruktor __construct() digunakan untuk membuat koneksi ke database MySQL. Properti $conn digunakan untuk menyimpan objek koneksi yang akan digunakan untuk menjalankan query.
+- Penjelasan: Fungsi ini memastikan bahwa setiap kali objek dari kelas yang menggunakan database dibuat, koneksi ke MySQL langsung dijalankan.
+
+### 5. Menerapkan Enkapsulasi Sesuai Logika Studi Kasus
+```php
+protected $id;
+protected $code;
+protected $name;
+protected $SKS;
+protected $hours;
+protected $meeting;
+
+public function display() {
+    return [
+        'ID' => $this->id,
+        'Kode' => $this->code,
+        'Mata Kuliah' => $this->name,
+        'SKS' => $this->SKS,
+        'Jam' => $this->hours,
+        'Pertemuan' => $this->meeting
+    ];
+}
+```
+- Enkapsulasi diterapkan melalui penggunaan protected dan private untuk properti di kelas Course dan CourseClass. Hal ini membatasi akses langsung ke atribut, sehingga hanya dapat diakses melalui metode yang sesuai.
+- Penjelasan: Atribut kelas dikemas (encapsulated) dalam kelas, sehingga tidak bisa diakses langsung dari luar. Hal ini menjaga keamanan dan integritas data. Untuk mengakses data tersebut, metode display() digunakan.
+
+### 6. Membuat Kelas Turunan Menggunakan Konsep Pewarisan
+```php
+class CourseClass extends Course {
+    private $student_class_id;
+    private $schedule;
+
+    public function __construct($id, $code, $name, $SKS, $hours, $meeting, $student_class_id) {
+        parent::__construct($id, $code, $name, $SKS, $hours, $meeting);
+        $this->student_class_id = $student_class_id;
+    }
+}
+```
+- Kelas CourseClass merupakan contoh penerapan pewarisan (inheritance), di mana kelas CourseClass adalah turunan dari kelas Course. Kelas CourseClass mewarisi properti dan metode dari kelas Course, tetapi juga menambahkan atribut baru, seperti student_class_id.
+- Penjelasan: Kelas CourseClass mewarisi semua properti dan metode dari Course dan menambahkan fungsionalitas tambahan dengan atribut baru seperti student_class_id.
+
+### 7. Menerapkan Polimorfisme untuk Minimal 2 Role Sesuai Studi Kasus
+```php
+// Override display di CourseClass
+public function display() {
+    $courseDetails = parent::display();
+    $courseDetails['Kelas'] = $this->student_class_id;
+    $courseDetails['Jadwal'] = $this->schedule;
+    return $courseDetails;
+}
+
+// Override display di Poly
+public function display() {
+    return [
+        'ID' => $this->id,
+        'Kode' => $this->code,
+        'Mata Kuliah' => $this->name,
+        'SKS' => $this->SKS
+    ];
+}
+```
+- Polimorfisme diterapkan melalui metode display() yang di-override di kelas CourseClass dan Poly. Kelas Poly hanya menampilkan sebagian data (ID, Kode, Mata Kuliah, dan SKS), sedangkan CourseClass menampilkan lebih banyak detail yang berkaitan dengan kelas.
+- Penjelasan: Metode display() di setiap kelas memberikan keluaran yang berbeda sesuai dengan kebutuhan. Ini menunjukkan bahwa metode yang sama dapat memiliki perilaku yang berbeda tergantung pada objek yang memanggilnya, yang merupakan konsep polimorfisme.
+
+Kode Viewm yang bersih dan terstruktur :
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/3.%20View.png)
+
+Semua Outpunya :
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/Output%201.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/Output%202.png)
+![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/Output%203.png)
