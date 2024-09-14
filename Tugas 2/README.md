@@ -210,7 +210,46 @@ $courseClassManager->addCourseClasses();
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/2.%20Insert%20data.png)
 
 ### 3. Membuat View berbasis OOP, dengan mengambil data dari database MySQL
-- Langkah ini sudah diterapkan dalam kode Anda dengan membuat view yang mengambil data dari tabel courses, course_classes, dan poly di database db_jkb. Data ditampilkan menggunakan tabel HTML. Kelas DatabaseConnection mengelola koneksi dan melakukan query untuk mengambil data.
+```php
+class DatabaseConnection {
+    protected $conn;
+
+    public function __construct() {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "db_jkb";
+
+        $this->conn = new mysqli($servername, $username, $password, $dbname);
+
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+    }
+
+    public function fetchCourses() {
+        $sql = "SELECT * FROM courses";
+        return $this->conn->query($sql);
+    }
+
+    public function fetchCourseClasses() {
+        $sql = "SELECT cc.*, c.code, c.name, c.SKS, c.hours, c.meeting 
+                FROM course_classes cc 
+                JOIN courses c ON cc.course_id = c.Id";
+        return $this->conn->query($sql);
+    }
+
+    public function fetchSingleCourse() {
+        $sql = "SELECT * FROM courses LIMIT 1";
+        return $this->conn->query($sql);
+    }
+     
+}
+```
+- __construct(): Ini adalah konstruktor dari kelas DatabaseConnection. Kelas ini menginisialisasi koneksi ke database menggunakan kredensial lokal (localhost, root, tanpa password, dan database db_jkb). Jika koneksi gagal, akan memunculkan pesan error.
+- fetchCourses(): Fungsi ini menjalankan query untuk mendapatkan semua data dari tabel courses.
+- fetchCourseClasses(): Fungsi ini menjalankan query untuk mendapatkan data dari tabel course_classes yang di-join dengan tabel courses, menampilkan informasi seperti code, name, SKS, hours, meeting, dan student_class_id.
+- fetchSingleCourse(): Fungsi ini hanya mengambil satu data dari tabel courses menggunakan LIMIT 1.
 
 ### 4. Menggunakan _construct sebagai link ke database
 ```php
@@ -274,7 +313,6 @@ class CourseClass extends Course {
 public function display() {
     $courseDetails = parent::display();
     $courseDetails['Kelas'] = $this->student_class_id;
-    $courseDetails['Jadwal'] = $this->schedule;
     return $courseDetails;
 }
 
@@ -287,9 +325,134 @@ public function display() {
         'SKS' => $this->SKS
     ];
 }
+class Poly extends Course {
+    public function __construct($id, $code, $name, $SKS) {
+        // Panggil constructor parent
+        parent::__construct($id, $code, $name, $SKS, null, null); // SKS diambil, tapi hours dan meeting null
+    }
+
+    // Override metode display untuk hanya menampilkan kolom yang diminta
+    public function display() {
+        return [
+            'ID' => $this->id,
+            'Kode' => $this->code,
+            'Mata Kuliah' => $this->name,
+            'SKS' => $this->SKS
+        ];
+    }
+}
 ```
 - Polimorfisme diterapkan melalui metode display() yang di-override di kelas CourseClass dan Poly. Kelas Poly hanya menampilkan sebagian data (ID, Kode, Mata Kuliah, dan SKS), sedangkan CourseClass menampilkan lebih banyak detail yang berkaitan dengan kelas.
-- Penjelasan: Metode display() di setiap kelas memberikan keluaran yang berbeda sesuai dengan kebutuhan. Ini menunjukkan bahwa metode yang sama dapat memiliki perilaku yang berbeda tergantung pada objek yang memanggilnya, yang merupakan konsep polimorfisme.
+- Kelas ini merupakan contoh dari polymorphism. Kelas Poly mewarisi Course, tetapi hanya menggunakan beberapa atribut saja.
+- __construct($id, $code, $name, $SKS): Konstruktor ini memanggil konstruktor dari Course tetapi hanya mengisi nilai SKS, sementara hours dan meeting di-set ke null.
+- display() (Overriding): Metode ini meng-override metode display() dari kelas Course untuk hanya menampilkan kolom yang dibutuhkan, yaitu ID, Kode, Mata Kuliah, dan SKS.
+
+### 8. Fungsi displayTable()
+```php
+function displayTable($type) {
+    global $db;
+    if ($type == 'courses') {
+        // Menampilkan tabel courses seperti sebelumnya
+        $coursesResult = $db->fetchCourses();
+        echo "<h2>Mata Kuliah:</h2>";
+        echo "<table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kode</th>
+                        <th>Mata Kuliah</th>
+                        <th>SKS</th>
+                        <th>Jam</th>
+                        <th>Pertemuan</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        while ($course = $coursesResult->fetch_assoc()) {
+            $courseObj = new Course($course['Id'], $course['code'], $course['name'], $course['SKS'], $course['hours'], $course['meeting']);
+            $details = $courseObj->display();
+            echo "<tr>
+                    <td>{$details['ID']}</td>
+                    <td>{$details['Kode']}</td>
+                    <td>{$details['Mata Kuliah']}</td>
+                    <td>{$details['SKS']}</td>
+                    <td>{$details['Jam']}</td>
+                    <td>{$details['Pertemuan']}</td>
+                  </tr>";
+        }
+        echo "</tbody></table>";
+    } elseif ($type == 'course_classes') {
+        // Menampilkan tabel course_classes seperti sebelumnya
+        $classesResult = $db->fetchCourseClasses();
+        echo "<h2>Kelas Mata Kuliah:</h2>";
+        echo "<table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kode</th>
+                        <th>Mata Kuliah</th>
+                        <th>SKS</th>
+                        <th>Jam</th>
+                        <th>Pertemuan</th>
+                        <th>Kelas</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        while ($class = $classesResult->fetch_assoc()) {
+            $classObj = new CourseClass(
+                $class['course_id'], 
+                $class['code'], 
+                $class['name'], 
+                $class['SKS'], 
+                $class['hours'], 
+                $class['meeting'], 
+                $class['student_class_id']
+            );
+            $details = $classObj->display();
+            echo "<tr>
+                    <td>{$details['ID']}</td>
+                    <td>{$details['Kode']}</td>
+                    <td>{$details['Mata Kuliah']}</td>
+                    <td>{$details['SKS']}</td>
+                    <td>{$details['Jam']}</td>
+                    <td>{$details['Pertemuan']}</td>
+                    <td>{$details['Kelas']}</td>
+                  </tr>";
+        }                
+        echo "</tbody></table>";
+    } elseif ($type == 'poly') {
+        // Menampilkan tabel poly dengan class Poly
+        $coursesResult = $db->fetchSingleCourse(); // Ambil satu data dari courses
+        echo "<h2>Tabel Poly:</h2>";
+        echo "<table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kode</th>
+                        <th>Mata Kuliah</th>
+                        <th>SKS</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        
+        // Ambil hanya satu data
+        if ($course = $coursesResult->fetch_assoc()) {
+            $polyObj = new Poly($course['Id'], $course['code'], $course['name'], $course['SKS']);
+            $details = $polyObj->display();
+            echo "<tr>
+                    <td>{$details['ID']}</td>
+                    <td>{$details['Kode']}</td>
+                    <td>{$details['Mata Kuliah']}</td>
+                    <td>{$details['SKS']}</td>
+                  </tr>";
+        }
+        echo "</tbody></table>";
+    }
+}
+```
+- Global Variable: Menggunakan global variable $db untuk mengakses metode dari objek DatabaseConnection.
+- courses: Jika tipe yang dipilih adalah courses, fungsi ini akan menampilkan tabel untuk mata kuliah. Mengambil semua kursus dari database, membuat objek Course untuk setiap kursus, lalu menampilkan detailnya.
+- course_classes: Jika tipe yang dipilih adalah course_classes, fungsi ini menampilkan tabel untuk kelas mata kuliah dengan menggunakan objek CourseClass.
+- poly: Jika tipe yang dipilih adalah poly, fungsi ini menampilkan tabel untuk kelas Poly, hanya mengambil satu kursus dari database dan menampilkannya.
 
 Kode Viewm yang bersih dan terstruktur :
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/3.%20View.png)
