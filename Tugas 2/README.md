@@ -454,7 +454,7 @@ function displayTable($type) {
 - course_classes: Jika tipe yang dipilih adalah course_classes, fungsi ini menampilkan tabel untuk kelas mata kuliah dengan menggunakan objek CourseClass.
 - poly: Jika tipe yang dipilih adalah poly, fungsi ini menampilkan tabel untuk kelas Poly, hanya mengambil satu kursus dari database dan menampilkannya.
 
-Kode Viewm yang bersih dan terstruktur :
+Kode View yang bersih dan terstruktur :
 ![Screenshot](https://github.com/Zahran15/P.WEB.II/blob/main/Tugas%202/3.%20View.png)
 
 Semua Outpunya :
